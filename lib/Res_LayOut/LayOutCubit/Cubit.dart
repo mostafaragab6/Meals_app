@@ -31,10 +31,10 @@ class HomeCubit extends Cubit<HomeStates>{
     ProfileScreen()
   ];
   List<BottomNavigationBarItem> items = [
-    BottomNavigationBarItem(icon: Image(image: AssetImage('icons/home.png'),color: Colors.grey[700],width: 30.0,height: 30.0,),label: "_"),
-    BottomNavigationBarItem(icon: Image(image: AssetImage('icons/loupe.png'),color: Colors.grey[700],width: 30.0,height: 30.0,),label: "_"),
-    BottomNavigationBarItem(icon: Image(image: AssetImage('icons/category.png'),color: Colors.grey[700],width: 30.0,height: 30.0),label: "_"),
-    BottomNavigationBarItem(icon: Image(image: AssetImage('icons/user.png'),color: Colors.grey[700],width: 30.0,height: 30.0),label: "_"),
+    BottomNavigationBarItem(icon: Image(image: AssetImage('icons/home.png'),color: Colors.grey[700],width: 25.0,height: 25.0,),label: "_"),
+    BottomNavigationBarItem(icon: Image(image: AssetImage('icons/loupe.png'),color: Colors.grey[700],width: 25.0,height: 25.0,),label: "_"),
+    BottomNavigationBarItem(icon: Image(image: AssetImage('icons/shopping-cart.png'),color: Colors.grey[700],width: 25.0,height: 25.0),label: "_"),
+    BottomNavigationBarItem(icon: Image(image: AssetImage('icons/user.png'),color: Colors.grey[700],width: 25.0,height: 25.0),label: "_"),
   ];
 
 

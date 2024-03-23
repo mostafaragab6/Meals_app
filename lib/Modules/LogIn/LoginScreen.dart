@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:meals_app/Modules/Register/Register_Screen.dart';
 import 'package:meals_app/Res_LayOut/LayOut.dart';
 import '../../CacheHelper.dart';
@@ -45,31 +46,10 @@ class ShopLogInScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.grey
                       ),),
+                      SizedBox(height:50.0,),
+                      Center(child: Image(image: AssetImage('images/restaurant.png'),width: 100.0,height: 100.0,)),
+                      SizedBox(height: 50.0,),
 
-                      SizedBox(height: 90.0,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 100.0,
-                              height: 60.0,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[300],
-                                borderRadius: BorderRadiusDirectional.circular(10.0)
-                              ),
-                              child: Center(child: Image(image: AssetImage('images/search.png'),width: 50.0,height: 40.0,))),
-                          SizedBox(width: 50.0,),
-                          Container(
-                              width: 100.0,
-                              height: 60.0,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[300],
-                                  borderRadius: BorderRadiusDirectional.circular(10.0)
-                              ),
-                              child: Center(child: Image(image: AssetImage('images/facebook.png'),width: 50.0,height: 40.0,))),
-                        ],
-                      ),
-                      SizedBox(height: 40.0,),
                       defaultForm(
                           controller: emailController,
                           prefix: Icons.email_outlined,
@@ -113,7 +93,9 @@ class ShopLogInScreen extends StatelessWidget {
 
                             },
                             color: Colors.green),
-                        fallback: (BuildContext context) =>Center(child: CircularProgressIndicator()),
+                        fallback: (BuildContext context) =>Center(child: SpinKitCircle(
+                          color: Colors.green[800],
+                        )),
 
                       ),
                       SizedBox(height: 15.0,),
@@ -124,6 +106,14 @@ class ShopLogInScreen extends StatelessWidget {
                           TextButton(onPressed: (){
                             navigatTo(context, RegisterScreen());
                           }, child: Text("REGISTER",style: TextStyle(color: Colors.green[800]),))
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(child: Image(image: AssetImage('images/search.png'),width: 30.0,height: 30.0,)),
+                          SizedBox(width: 50.0,),
+                          Center(child: Image(image: AssetImage('images/facebook.png'),width: 30.0,height: 30.0,)),
                         ],
                       ),
                     ],

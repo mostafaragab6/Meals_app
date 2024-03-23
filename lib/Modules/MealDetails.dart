@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:meals_app/Models/MealsModel.dart';
 import 'package:meals_app/Models/Searched_MealModel.dart';
 import 'package:meals_app/Res_LayOut/LayOutCubit/Cubit.dart';
@@ -24,14 +25,39 @@ class MealDetails extends StatelessWidget {
         return Scaffold(
 
           body: ConditionalBuilder(
-            condition: mealData!=null,
+            condition: (mealsData!=null&&mealData!=null) || mealData!=null ,
             builder: (BuildContext context) {
               return Stack(
                 children: [
+                  
                   Container(
                       width: double.infinity,
-                      height: 520.0,
-                      child: Image(image: NetworkImage("${mealsData!.strMealThumb}"),fit: BoxFit.cover,)
+                      height: 550.0,
+                      child: mealsData!=null? Image(image: NetworkImage("${mealsData!.strMealThumb}"),fit: BoxFit.cover,) : Image(image: NetworkImage("${mealData!.meals[index].strMealThumb}"),fit: BoxFit.cover,)
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Container(
+                      color: Colors.black.withOpacity(0.3),
+                        width: double.infinity,
+                        height: 550.0,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                                onTap: (){
+                                  launchUrl(Uri.parse(mealData!.meals[index].strYoutube!));
+                                },
+                                child: Icon(Icons.play_arrow,size: 70.0,color: Colors.grey[500],)),
+                            Text('Watch Video',
+                            style: TextStyle(
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.grey[500]
+                            ),)
+                          ],
+                        ),
+                    ),
                   ),
                   DraggableScrollableSheet(
                     initialChildSize: 0.5,
@@ -57,14 +83,27 @@ class MealDetails extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
-                                    child: Text("${mealsData!.strMeal}",
+                                    child:mealsData!=null? Text("${mealsData!.strMeal}",
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                        fontSize: 24.0,
+                                        fontWeight: FontWeight.w700,
+                                      ),) :
+                                    Text("${mealData!.meals[index].strMeal}",
                                       maxLines: 2,
                                       style: TextStyle(
                                         fontSize: 24.0,
                                         fontWeight: FontWeight.w700,
                                       ),),
                                   ),
-                                  Text("\$${mealsData!.idMeal}.00",
+                                  mealsData!=null? Text("\$${mealsData!.idMeal}.00",
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                        fontSize: 24.0,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.green[800]
+                                    ),):
+                                  Text("\$${mealData!.meals[index].Price}.00",
                                     maxLines: 2,
                                     style: TextStyle(
                                         fontSize: 24.0,
@@ -87,7 +126,7 @@ class MealDetails extends StatelessWidget {
                                   Text(',  '),
                                   ConditionalBuilder(
                                     condition: mealData!.meals[index].strTags !=null,
-                                    builder: (BuildContext context) { 
+                                    builder: (BuildContext context) {
                                       return  Expanded(
                                         child: Text('${mealData!.meals[index].strTags}',
                                           overflow: TextOverflow.ellipsis,
@@ -98,7 +137,7 @@ class MealDetails extends StatelessWidget {
                                       );
                                     },
                                     fallback: (BuildContext context)=>Expanded(child: Text('')),
-                                   
+
                                   ),
 
                                   Container(
@@ -111,7 +150,11 @@ class MealDetails extends StatelessWidget {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text('${mealsData!.Rating}',
+                                        mealsData!=null? Text('${mealsData!.Rating}',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w600
+                                          ),):Text('${mealData!.meals[index].Rating}',
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w600
@@ -246,7 +289,9 @@ class MealDetails extends StatelessWidget {
               );
 
             },
-            fallback: (BuildContext context) => Center(child: CircularProgressIndicator()),
+            fallback: (BuildContext context) => Center(child: SpinKitCircle(
+              color: Colors.green[800],
+            )),
 
           ),
 

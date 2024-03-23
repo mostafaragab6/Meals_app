@@ -19,6 +19,7 @@ await CacheHelper.init();
   DioHelper1.init();
   token = CacheHelper.GetData(key:'token');
 
+  CacheHelper.deleteData(key: 'initIndex');
   print(token);
 
   runApp(const MyApp());

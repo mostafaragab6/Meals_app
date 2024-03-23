@@ -22,13 +22,12 @@ class ResLayOut extends StatelessWidget {
                       color: Colors.green
                   ),),
               ],
-            ),
-            // actions: [
-            //   CircleAvatar(
-            //     radius: 15.0,
-            //     child: Image(image: AssetImage('')),
-            //   )
-            // ],
+            ),actions: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Image(image: AssetImage('images/restaurant.png'),width: 30.0,height: 30.0,),
+              )
+          ],
           ) :null,
 
           body: Stack(
@@ -39,7 +38,7 @@ class ResLayOut extends StatelessWidget {
                 child: Align(
                   alignment: Alignment(0.0,1.0),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(20.0),
                     child: BottomNavigationBar(
                       backgroundColor: Colors.grey[400],
                       currentIndex: cubit.currentIndex,

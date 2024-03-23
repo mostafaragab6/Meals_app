@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:meals_app/Models/Searched_MealModel.dart';
 import 'package:meals_app/Res_LayOut/LayOutCubit/Cubit.dart';
 import 'package:meals_app/Res_LayOut/LayOutCubit/States.dart';
@@ -158,9 +159,11 @@ class SearchedItem extends StatelessWidget {
                       ),
                     );
                   },
-                  fallback: (BuildContext context) => LinearProgressIndicator(
-                    color: Colors.green[800],
-                  ),
+                  fallback: (BuildContext context) => Center(
+                    child: SpinKitCircle(
+                      color: Colors.green[800],
+                    ),
+                  )
 
                 );
               },

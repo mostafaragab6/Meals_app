@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:meals_app/CacheHelper.dart';
 import 'package:meals_app/Models/MealsModel.dart';
 import 'package:meals_app/Modules/MealDetails.dart';
@@ -25,6 +27,25 @@ class ProdScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
              children: [
+
+               Padding(
+                 padding: const EdgeInsetsDirectional.only(start: 12.0,top: 20.0),
+                 child: Text('Delicious Food',
+                 style: TextStyle(
+                   fontSize: 20.0,
+                   fontWeight: FontWeight.w600
+                 )),
+               ),
+
+               Padding(
+                 padding: const EdgeInsetsDirectional.symmetric(horizontal: 12.0),
+                 child: Text('Discover and Get Great Food',
+                     style: TextStyle(
+                         fontSize: 15.0,
+                         fontWeight: FontWeight.w300,
+                       color: Colors.grey[600]
+                     )),
+               ),
                SizedBox(height: 20.0,),
 
                Padding(
@@ -39,7 +60,7 @@ class ProdScreen extends StatelessWidget {
 
                      borderRadius: BorderRadius.circular(20.0),
 
-                     child: Image(image: AssetImage('images/images.jpg'),
+                     child: Image(image: AssetImage('images/download.png'),
 
 
 
@@ -63,9 +84,9 @@ class ProdScreen extends StatelessWidget {
 
                    style: TextStyle(
 
-                       fontSize: 30.0,
+                       fontSize: 25.0,
 
-                       fontWeight: FontWeight.w500
+                       fontWeight: FontWeight.w600
 
                    ),),
 
@@ -186,10 +207,9 @@ class ProdScreen extends StatelessWidget {
 
                      return BuildItem(mealsModel[cubit.ind], cubit, context);
                    },
-                   fallback: (context)=> LinearProgressIndicator(
-                     backgroundColor: Colors.green,
+                   fallback: (context)=> Center(child: SpinKitCircle(
                      color: Colors.green[800],
-                   ),),
+                   ))),
              ],
           ),
         );
@@ -254,16 +274,8 @@ Widget BuildItem(MealsModel model, HomeCubit cubit,context)=> Padding(
                                         Stack(
                                           alignment: AlignmentDirectional.topEnd,
                                           children: [
-                                            ConditionalBuilder(
-                                              condition: model.meals[index].strMealThumb!= null,
-                                              builder: (BuildContext context) {
-                                                return Image(
-                                                  image: NetworkImage("${model.meals[index].strMealThumb}"),fit: BoxFit.cover,);
-                                              },
-                                              fallback: (BuildContext context) {
-                                                return RefreshProgressIndicator();
-                                              },
-
+                                            CachedNetworkImage(imageUrl: '${model.meals[index].strMealThumb}',fit: BoxFit.cover,
+                                            errorWidget: (context, url, error) => Icon(Icons.error),
                                             ),
                                             InkWell(
                                               onTap: (){
@@ -272,7 +284,7 @@ Widget BuildItem(MealsModel model, HomeCubit cubit,context)=> Padding(
                                                 cubit.GetSearchedMeals(name: model.meals[index].strMeal!);
                                                 cubit.Counter=1;
 
-                                                Navigator.push(context, MaterialPageRoute(builder:(context)=>MealDetails(mealData: cubit.searchedMeal)));
+                                                Navigator.push(context, MaterialPageRoute(builder:(context)=>MealDetails(mealData: cubit.searchedMeal,mealsData: model.meals[index],)));
                                               },
                                               child: Container(
 

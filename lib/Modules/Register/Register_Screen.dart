@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:meals_app/Res_LayOut/LayOut.dart';
 import 'package:meals_app/Res_LayOut/LayOutCubit/Cubit.dart';
 
@@ -81,10 +82,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   defaultForm(controller: nameController,
                                       prefix: Icons.person,
                                       type: TextInputType.text,
-                                      label: "First Name",
+                                      label: "Name",
                                       validate: (value) {
                                         if (value!.isEmpty) {
-                                          return "PLease enter your first name";
+                                          return "PLease enter your name";
                                         }
                                       }
                                   ),
@@ -146,7 +147,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                                         },
                                         color: Colors.green),
-                                    fallback: (BuildContext context) =>Center(child: CircularProgressIndicator()),
+                                    fallback: (BuildContext context) =>Center(child: SpinKitCircle(
+                                      color: Colors.green[800],
+                                    )),
 
                                   ),
                                 ],

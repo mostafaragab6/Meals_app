@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../CacheHelper.dart';
 import '../Consts/Components.dart';
 import '../Res_LayOut/LayOutCubit/Cubit.dart';
@@ -167,9 +168,9 @@ class ProfileScreen extends StatelessWidget {
             );
           },
           fallback: (BuildContext context) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return Center(child: SpinKitCircle(
+              color: Colors.green[800],
+            ));
           },
 
         );
